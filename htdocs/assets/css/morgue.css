@@ -110,6 +110,26 @@ a.jira_default {}
   font-size: 11px;
 }
 
+#goal {
+  width: 100%;
+}
+
+#rca {
+  width: 100%;
+}
+
+#countermeasures {
+  width: 100%;
+}
+
+#plan {
+  width: 100%;
+}
+
+#followup {
+  width: 100%;
+}
+
 #summary {
   width: 100%;
 }

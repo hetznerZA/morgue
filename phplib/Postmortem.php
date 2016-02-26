@@ -26,6 +26,11 @@ class Postmortem {
      * @param $event - map of an event with the following keys
      *                 - title => the title of the event
      *                 - summary => the summary of the post mortem
+     *                 - rca  => the root cause analysis of the post mortem
+     *                 - countermeasures  => possible identified countermeasures of the post mortem
+     *                 - goal  => the goal of the post mortem
+     *                 - plan  => the plan to execute countermeasures of the post mortem
+     *                 - followup  => the follow up of the post mortem
      *                 - starttime => start time as unix timestamp
      *                 - endtime   => end time as unix timestamp
      *                 - statustime => status time as unix timestamp
@@ -275,7 +280,7 @@ class Postmortem {
      */
     static function get_events_by_date($start_date = null, $end_date = null, $conn = null) {
         $conn = $conn ?: Persistence::get_database_object();
-        $columns = array('id', 'title', 'starttime', 'endtime', 'severity', 'summary');
+        $columns = array('id', 'title', 'starttime', 'endtime', 'severity', 'summary', 'rca', 'goal', 'countermeasures', 'followup', 'plan');
 
         // set some default date ranges - 1 month in this case
         if (!$start_date) {
@@ -558,8 +563,8 @@ class Postmortem {
         }
         $now = new DateTime(null, new DateTimeZone('UTC'));
         $sql = "INSERT INTO postmortem_history
-                   (postmortem_id, auth_username, action, create_date, summary, why_surprised)
-                   VALUES (:pid, :admin, :action, :date, :summary, :why_surprised)";
+                   (postmortem_id, auth_username, action, create_date, summary, goal, rca, why_surprised, countermeasures, plan, followup)
+                   VALUES (:pid, :admin, :action, :date, :summary, :goal, :rca, :why_surprised. :countermeasures, :plan, :followup)";
         try {
             $stmt = $conn->prepare($sql);
             $stmt->execute(array(
@@ -568,6 +573,11 @@ class Postmortem {
                 "action" => $action,
                 "date" => $now->getTimestamp(),
                 "summary" => $event['summary'],
+                "goal" => $event['goal'],
+                "rca" => $event['rca'],
+                "countermeasures" => $event['countermeasures'],
+                "plan" => $event['plan'],
+                "followup" => $event['followup'],
                 "why_surprised" => $event['why_surprised']
             ));
         } catch (PDOException $e) {

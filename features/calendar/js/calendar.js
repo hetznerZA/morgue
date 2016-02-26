@@ -1,0 +1,1 @@
+{"web":{"client_id":"323192368340-taj7o2tes1nhr68raqb9d5kfqfhck922.apps.googleusercontent.com","project_id":"the-kernels","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://accounts.google.com/o/oauth2/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"Y3RPl5FKTwWCKTkhFv9NyinG"}}

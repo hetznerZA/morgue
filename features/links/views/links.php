@@ -9,7 +9,7 @@ if ($forum_links["status"] == Links::OK) {
 
 ?>
 <div class="row-fluid">
-  <legend>Forums</legend>
+  <legend>Forums/Tickets</legend>
   <div class="editable_hidden" style="display:none;">
   <input type="text" placeholder="Enter link to forum post" id="forum_url" name="forum_url" class="input-xxlarge" value="<?php echo isset($forum_url) ? $forum_url : '' ?>" />
   <input type="text" placeholder="Forum post description" id="forum_comment" name="forum_comment" class="input-xxlarge" maxlength="100" value="<?php echo isset($forum_comment) ? $forum_comment : ''?>" />

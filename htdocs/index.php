@@ -190,6 +190,11 @@ $app->post('/events', function () use ($app) {
     $event = array(
         "title" => $title,
         "summary" => "",
+        "rca" => "",
+        "goal" => "",
+        "countermeasures" => "",
+        "plan" => "",
+        "followup" => "",
         "why_surprised" => "",
         "starttime" => $startdate->getTimeStamp(),
         "endtime" => $enddate->getTimeStamp(),
@@ -222,6 +227,11 @@ $app->get('/events/:id', function($id) use ($app) {
     $gcal = $event["gcal"];
     $contact = $event["contact"];
     $summary = $event["summary"];
+    $rca = $event["rca"];
+    $goal = $event["goal"];
+    $plan = $event["plan"];
+    $followup = $event["followup"];
+    $countermeasures = $event["countermeasures"];
     $why_surprised = $event["why_surprised"];
 
     $tz = new DateTimeZone($timezone);
@@ -272,6 +282,66 @@ $app->get('/events/:id/undelete', function($id) use ($app) {
     }
 });
 
+$app->get('/events/:id/rca', function($id) use ($app) {
+    $event = Postmortem::get_event($id);
+
+    if (is_null($event["id"])) {
+        $app->response->status(404);
+        return;
+    }
+    header("Content-Type: application/json");
+    echo json_encode(array("rca" => $event["rca"]));
+
+});
+
+$app->get('/events/:id/countermeasures', function($id) use ($app) {
+    $event = Postmortem::get_event($id);
+
+    if (is_null($event["id"])) {
+        $app->response->status(404);
+        return;
+    }
+    header("Content-Type: application/json");
+    echo json_encode(array("countermeasures" => $event["countermeasures"]));
+
+});
+
+$app->get('/events/:id/goal', function($id) use ($app) {
+    $event = Postmortem::get_event($id);
+
+    if (is_null($event["id"])) {
+        $app->response->status(404);
+        return;
+    }
+    header("Content-Type: application/json");
+    echo json_encode(array("goal" => $event["goal"]));
+
+});
+
+$app->get('/events/:id/plan', function($id) use ($app) {
+    $event = Postmortem::get_event($id);
+
+    if (is_null($event["id"])) {
+        $app->response->status(404);
+        return;
+    }
+    header("Content-Type: application/json");
+    echo json_encode(array("plan" => $event["plan"]));
+
+});
+
+$app->get('/events/:id/followup', function($id) use ($app) {
+    $event = Postmortem::get_event($id);
+
+    if (is_null($event["id"])) {
+        $app->response->status(404);
+        return;
+    }
+    header("Content-Type: application/json");
+    echo json_encode(array("followup" => $event["followup"]));
+
+});
+
 $app->get('/events/:id/summary', function($id) use ($app) {
     $event = Postmortem::get_event($id);
 
@@ -317,6 +387,21 @@ $app->put('/events/:id', function ($id) use ($app) {
             break;
         case "summary":
             $event["summary"] = $value;
+            break;
+        case "rca":
+            $event["rca"] = $value;
+            break;
+        case "goal":
+            $event["goal"] = $value;
+            break;
+        case "plan":
+            $event["plan"] = $value;
+            break;
+        case "followup":
+            $event["followup"] = $value;
+            break;
+        case "countermeasures":
+            $event["countermeasures"] = $value;
             break;
         case "why_surprised":
             $event["why_surprised"] = $value;
@@ -422,6 +507,11 @@ $app->post('/events/:id/history', function($id) use ($app) {
     $event = array(
         "id" => $id,
         "summary" => $app->request->post('summary'),
+        "rca" => $app->request->post('rca'),
+        "goal" => $app->request->post('goal'),
+        "plan" => $app->request->post('plan'),
+        "followup" => $app->request->post('followup'),
+        "countermeasures" => $app->request->post('countermeasures'),
         "why_surprised" => $app->request->post('why_surprised')
         );
 

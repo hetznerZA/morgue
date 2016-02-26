@@ -9,12 +9,20 @@
          echo '<pre>' . $history["summary"] . '</pre>';
      }
      ?>
-     <h3>Why were we surprised?</h3>
+     <h3>What Happened?</h3>
+     <?php 
+     if($history["summary"] === null){
+         echo "<hr><h4>No Data Found</h4><br/>";
+     } else {
+         echo '<pre>' . $history["summary"] . '</pre>';
+     }
+     ?>
+     <h3>Root Cause Analysis</h3>
      <?php
-     if($history["why_surprised"] === null){
+     if($history["rca"] === null){
          echo "<hr><h4>No Data Found</h4>";
      } else {
-         echo '<pre>' . $history["why_surprised"] . '</pre>';
+         echo '<pre>' . $history["rca"] . '</pre>';
      }
      ?>
      </div>
