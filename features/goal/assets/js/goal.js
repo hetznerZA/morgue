@@ -1,23 +1,17 @@
 var old_goal = null;
 
 /**
- * get the raw markdown goal and display it in a textedit area instead of
+ * get the raw markdown summary and display it in a textedit area instead of
  * the rendered HTML
  * param: optional text to append to the textedit area
  */
-function make_goal_editable(text) {
-    var $goal = $("#goal");
-
-    if (typeof text !== "string") {
-        text = '';
-    } else {
-        text = "\n"+text;
-    }
+function make_goal_editable() {
+    var $summary = $("#goal");
 
     // if a textarea already, append to it
-    if ($goal.is('textarea')) {
-        $goal.val(function(index, value){
-                return value + text;
+    if ($summary.is('textarea')) {
+        $summary.val(function(index, value){
+                return value;
             });
 
         // if not a textarea already, create one and replace the original div with it
@@ -29,11 +23,12 @@ function make_goal_editable(text) {
                           .attr({
                                   "id": "goal",
                                   "name": "goal",
+                                  "placeholder": "State the specific target(s). State in measurable or identifiable terms.",
                                   "class": "input-xxlarge editable",
                                   "rows": "10"
                               })
-                          .val(data.goal + text);
-                      $goal.replaceWith(textarea);
+                          .val(data.goal);
+                      $summary.replaceWith(textarea);
                       $("#goal").on("save", goal_save);
                   },
                   'json' // forces return to be json decoded
@@ -41,9 +36,10 @@ function make_goal_editable(text) {
     }
 }
 
+
 /**
- * Depending on the current state either show the editable goal form or
- * save the markdown goal and render as HTML
+ * Depending on the current state either show the editable summary form or
+ * save the markdown summary and render as HTML
  */
 function goal_save(e, event, history) {
     var new_goal = $("#goal").val();
@@ -62,8 +58,8 @@ function goal_save(e, event, history) {
     html.attr("rows", "10");
     html.html(markdown.toHTML($("#goal").val()));
     $("#goal").remove();
-    $("#goalwrapper").append(html);
-    $("#goalundobutton").hide();
+    $("#goal_wrapper").append(html);
+    $("#goal_undobutton").hide();
     $("#goal").on("edit", make_goal_editable);
 }
 
@@ -77,9 +73,9 @@ function goal_undo_button() {
 }
 
 $("#goal").on("edit", make_goal_editable);
-$("#goalundobutton").on("click", goal_undo_button);
+$("#goal_undobutton").on("click", goal_undo_button);
 $.getJSON("/events/"+get_current_event_id()+"/goal", function(data) {
-    old_goal = data.goal;
+        old_goal = data.goal;
     $("#goal").html(markdown.toHTML(data.goal));
 });
 

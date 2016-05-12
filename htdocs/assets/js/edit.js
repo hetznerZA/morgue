@@ -71,6 +71,7 @@ function make_editable() {
             if(data.status === EDIT_UNLOCKED) {
                 $(".editable").removeAttr("disabled");
                 $(".editable_hidden").show();
+                $(".watermark").show();
                 $(".editable").trigger("edit");
 
                 edit_div.attr({
@@ -111,6 +112,7 @@ function save_page() {
     $(".editable").trigger("save", [event, hist]);
 
     $(".editable_hidden").hide();
+    $(".watermark").hide();
     $("input.editable").prop("disabled", true);
     $("select.editable").prop("disabled", true);
 

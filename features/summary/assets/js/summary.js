@@ -29,6 +29,7 @@ function make_summary_editable(text) {
                           .attr({
                                   "id": "summary",
                                   "name": "summary",
+                                  "placeholder": "Why are you talking about it? What is the business case? WHY are you addressing the issue",
                                   "class": "input-xxlarge editable",
                                   "rows": "10"
                               })

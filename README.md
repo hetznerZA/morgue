@@ -311,6 +311,11 @@ Simply run the migration(s) commands to update your schemas:
 ```
     alter table postmortems change etsystatustime statustime int(11) UNSIGNED NOT NULL;
     alter table postmortems add column why_surprised text NOT NULL;
+    alter table postmortems add column goal text NOT NULL;
+    alter table postmortems add column rca text NOT NULL;
+    alter table postmortems add column counters text NOT NULL;
+    alter table postmortems add column plan text NOT NULL;
+    alter table postmortems add column followup text NOT NULL;
 ```
 
 Or simply :
@@ -318,6 +323,11 @@ Or simply :
 ```
     mysql -p -u morgue -h localhost morgue < schemas/migrations/rename_statustime_column.sql
     mysql -p -u morgue -h localhost morgue < schemas/migrations/add_why_surprised_field.sql
+    mysql -p -u morgue -h localhost morgue < schemas/migrations/add_goal_field.sql
+    mysql -p -u morgue -h localhost morgue < schemas/migrations/add_rca_field.sql
+    mysql -p -u morgue -h localhost morgue < schemas/migrations/add_counters_field.sql
+    mysql -p -u morgue -h localhost morgue < schemas/migrations/add_plan_field.sql
+    mysql -p -u morgue -h localhost morgue < schemas/migrations/add_followup_field.sql
     mysql -p -u morgue -h localhost morgue < schemas/migrations/change_text_to_longtext.sql
     mysql -p -u morgue -h localhost morgue < schemas/migrations/add_event_facilitators.sql
     mysql -p -u morgue -h localhost morgue < schemas/migrations/add_edit_locking.sql

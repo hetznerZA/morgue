@@ -20,12 +20,12 @@ class Persistence {
      * @param $postmortem - map of a postmortem with the following keys
      *                    - title => the title of the event
      *                    - summary => the summary of the post mortem
-     *                    - rca => the root cause analysis of the post mortem
-     *                    - goal => the goal of the post mortem
-     *                    - countermeasures => the identified countermeasures of the post mortem
-     *                    - plan => the plan to execute the identified countermeasures of the post mortem
-     *                    - followup => the follow up of the post mortem
      *                    - why_surprised => why were we surprised
+     *                    - goal => what do we want to get out of the post mortem
+     *                    - rca => root cause analysis
+     *                    - counters => the proposed countermeasures
+     *                    - plan => the plan of action
+     *                    - followup => follow up
      *                    - starttime => start time as unix timestamp
      *                    - endtime   => end time as unix timestamp
      *                    - statustime => status time as unix timestamp
@@ -53,21 +53,21 @@ class Persistence {
                     $sql.= ",summary=:summary";
                     array_push($values,"summary");
                 }
+                if( isset($postmortem['why_surprised']) ) {
+                    $sql.= ",why_surprised=:why_surprised";
+                    array_push($values,"why_surprised");
+                }
                 if( isset($postmortem['goal']) ) {
                     $sql.= ",goal=:goal";
                     array_push($values,"goal");
-                }
-                if( isset($postmortem['countermeasures']) ) {
-                    $sql.= ",countermeasures=:countermeasures";
-                    array_push($values,"countermeasures");
                 }
                 if( isset($postmortem['rca']) ) {
                     $sql.= ",rca=:rca";
                     array_push($values,"rca");
                 }
-                if( isset($postmortem['countermeasures']) ) {
-                    $sql.= ",countermeasures=:countermeasures";
-                    array_push($values,"countermeasures");
+                if( isset($postmortem['counters']) ) {
+                    $sql.= ",counters=:counters";
+                    array_push($values,"counters");
                 }
                 if( isset($postmortem['plan']) ) {
                     $sql.= ",plan=:plan";
@@ -76,10 +76,6 @@ class Persistence {
                 if( isset($postmortem['followup']) ) {
                     $sql.= ",followup=:followup";
                     array_push($values,"followup");
-                }
-                if( isset($postmortem['why_surprised']) ) {
-                    $sql.= ",why_surprised=:why_surprised";
-                    array_push($values,"why_surprised");
                 }
                 if( isset($postmortem['starttime']) ) {
                     $sql.= ",starttime=:starttime";
@@ -117,10 +113,10 @@ class Persistence {
 
 
             } else {
-                array_push($values, "summary", "goal", "rca", "countermeasures", "plan", "followup", "why_surprised", "starttime", "endtime", "statustime", "detecttime", "severity", "created");
+                array_push($values, "summary", "why_surprised", "goal", "rca", "counters", "plan", "followup", "starttime", "endtime", "statustime", "detecttime", "severity", "created");
 
-                $sql = "INSERT INTO postmortems (title,summary,goal,rca,countermeasures,plan,followup,why_surprised,starttime,endtime,
-                    statustime,detecttime,severity,created) VALUES (:title, :summary,:goal,:rca,:countermeasures,:plan,:followup,:why_surprised,:starttime,
+                $sql = "INSERT INTO postmortems (title,summary,why_surprised,goal,rca,counters,plan,followup,starttime,endtime,
+                    statustime,detecttime,severity,created) VALUES (:title, :summary,:why_surprised,:goal,:rca,:counters,:plan,:followup,:starttime,
                     :endtime,:statustime,:detecttime,:severity,:created)";
             }
             $stmt = $conn->prepare($sql);
@@ -149,7 +145,7 @@ class Persistence {
         $conn = $conn ?: Persistence::get_database_object();
 
         try {
-            $sql = "SELECT id, title, summary, goal, rca, countermeasures, plan, followup, why_surprised, starttime, endtime, statustime,
+            $sql = "SELECT id, title, summary, why_surprised, goal, rca, counters, plan, followup, starttime, endtime, statustime,
                     detecttime,severity, contact, gcal, created, modified, modifier, deleted 
                     FROM postmortems WHERE id = :id LIMIT 1";
             $stmt = $conn->prepare($sql);

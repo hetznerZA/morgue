@@ -49,6 +49,11 @@ input:disabled {
   box-shadow: none;
 }
 
+.watermark[placeholder]:empty:not(:focus):before {
+  content: attr(placeholder);
+  color: gray;
+}
+
 .editable{
 }
 
@@ -110,6 +115,14 @@ a.jira_default {}
   font-size: 11px;
 }
 
+#summary {
+  width: 100%;
+}
+
+#why_surprised {
+  width: 100%;
+}
+
 #goal {
   width: 100%;
 }
@@ -118,7 +131,7 @@ a.jira_default {}
   width: 100%;
 }
 
-#countermeasures {
+#counters {
   width: 100%;
 }
 
@@ -129,15 +142,6 @@ a.jira_default {}
 #followup {
   width: 100%;
 }
-
-#summary {
-  width: 100%;
-}
-
-#why_surprised {
-  width: 100%;
-}
-
 .modal.fade {
   /* this is needed because the hidden modal dom
    * elements block access to the navbar links */

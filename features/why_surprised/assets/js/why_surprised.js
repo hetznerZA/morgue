@@ -23,6 +23,7 @@ function make_why_surprised_editable() {
                           .attr({
                                   "id": "why_surprised",
                                   "name": "why_surprised",
+                                  "placeholder": "What is going on? Use facts, date, Skype history, make the problem clear",
                                   "class": "input-xxlarge editable",
                                   "rows": "10"
                               })
