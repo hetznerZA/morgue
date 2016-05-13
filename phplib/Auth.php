@@ -9,11 +9,12 @@ class MorgueAuth {
      * @returns auth data as a dictionary
      */
     static function get_auth_data() {
-        if (function_exists("morgue_get_user_data")) {
-            $admin_data =  morgue_get_user_data();
+        if (!empty($_SERVER['PHP_AUTH_USER'])) {
+            $admin_data =  array("username" => $_SERVER['PHP_AUTH_USER']);
         } else {
             $admin_data = array("username" => "morgue_user");
         }
         return $admin_data;
     }
+
 }

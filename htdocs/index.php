@@ -123,7 +123,6 @@ foreach ($config['feature'] as $feature) {
 // so it's available to our request handlers
 $env = $app->environment;
 $env['admin'] = MorgueAuth::get_auth_data();
-
 $app->get('/', function() use ($app) {
     $content = 'content/frontpage';
     $show_sidebar = true;
