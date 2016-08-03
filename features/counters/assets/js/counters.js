@@ -23,7 +23,7 @@ function make_counters_editable() {
                           .attr({
                                   "id": "counters",
                                   "name": "counters",
-                                  "placeholder": "Your proposed countermeasures",
+                                  "placeholder": "Your proposed countermeasure(s) to address each candidate root cause",
                                   "class": "input-xxlarge editable",
                                   "rows": "10"
                               })
