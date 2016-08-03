@@ -23,7 +23,7 @@ function make_plan_editable() {
                           .attr({
                                   "id": "plan",
                                   "name": "plan",
-                                  "placeholder": "Timeline, who, what, when, where, how",
+                                  "placeholder": "Actual result of each countermeasure (above). How does the system actually behave with the countermeasures that are being proposed for implementation? Note the difference between the intended goal and the actual result. Was the goal achieved, if not, what is missing?",
                                   "class": "input-xxlarge editable",
                                   "rows": "10"
                               })

@@ -23,7 +23,7 @@ function make_followup_editable() {
                           .attr({
                                   "id": "followup",
                                   "name": "followup",
-                                  "placeholder": "Effect Confirmation. Have the countermeasures achieved the desired results?",
+                                  "placeholder": "What have we learned that does or does not improve the situation? In the light of the learning, what should be done? How should the way we work or our standards be adjusted to reflect what we learned? What do we need to learn next?",
                                   "class": "input-xxlarge editable",
                                   "rows": "10"
                               })
